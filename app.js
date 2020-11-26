@@ -11,7 +11,7 @@ class PixelPerfect {
         };
     }
     
-    constructor() {
+    init() {
         if (document.getElementById('pixel-perfect') === null) {
             this.storage.init();
             document.body.insertAdjacentHTML(
@@ -130,4 +130,5 @@ class PixelPerfect {
     }
 }
 
-(() => window.pixelPerfect = new PixelPerfect())();
+window.pixelPerfect = new PixelPerfect();
+window.pixelPerfect.init();
