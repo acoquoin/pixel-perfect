@@ -20,9 +20,9 @@ class PixelPerfect {
                         <summary>PixelPerfect</summary>
                         <div>
                             <label style="grid-column: span 2;">IMAGE<div class="input"><input type="file" accept="image/*" /></div></label>
-                            <label style="grid-row: 2;">X<input type="number" value="0" name="x" /></label>
-                            <label style="grid-row: 2;">Y<input type="number" value="0" name="y" /></label>
-                            <label style="grid-column: span 2;">OPACITY (<output>30</output>%)<input type="range" min="0" max="1" step="0.05" value="0.3" /></label>
+                            <label style="grid-row: 2;">X<input type="number" placceholder="0" name="x" /></label>
+                            <label style="grid-row: 2;">Y<input type="number" placceholder="0" name="y" /></label>
+                            <label style="grid-column: span 2;">OPACITY (<output>30</output>%)<input type="range" min="0" max="1" step="0.05" placceholder="0.3" /></label>
                             <p style="grid-column: span 2;">
                                 Use <kbd>&#9650;</kbd> <kbd>&#9658;</kbd> <kbd>&#9660</kbd> or <kbd>&#9668;</kbd> with or without:<br>
                                 &nbsp;&nbsp;- <kbd>Shift</kbd> to adjust X, Y positions.<br>
