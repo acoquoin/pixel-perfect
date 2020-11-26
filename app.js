@@ -108,21 +108,25 @@ class PixelPerfect {
                         e.preventDefault();
                         this.controls.image.style.top = (parseInt(this.controls.image.style.top) || 0) - (e.ctrlKey ?  10 : 1) + 'px';
                         this.storage.set('y', parseInt(this.controls.image.style.top));
+                        this.controls.y.value = parseInt(this.controls.image.style.top);
                     }
                     if (e.key === 'ArrowDown') {
                         e.preventDefault();
                         this.controls.image.style.top = (parseInt(this.controls.image.style.top) || 0) + (e.ctrlKey ?  10 : 1) + 'px';
                         this.storage.set('y', parseInt(this.controls.image.style.top));
+                        this.controls.y.value = parseInt(this.controls.image.style.top);
                     }
                     if (e.key === 'ArrowLeft') {
                         e.preventDefault();
                         this.controls.image.style.left = (parseInt(this.controls.image.style.left) || 0) - (e.ctrlKey ?  10 : 1) + 'px';
                         this.storage.set('x', parseInt(this.controls.image.style.left));
+                        this.controls.x.value = parseInt(this.controls.image.style.left);
                     }
                     if (e.key === 'ArrowRight') {
                         e.preventDefault();
                         this.controls.image.style.left = (parseInt(this.controls.image.style.left) || 0) + (e.ctrlKey ?  10 : 1) + 'px';
                         this.storage.set('x', parseInt(this.controls.image.style.left));
+                        this.controls.x.value = parseInt(this.controls.image.style.left);
                     }
                 }
             });
