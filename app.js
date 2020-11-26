@@ -2,23 +2,23 @@ class PixelPerfect {
     get storage() {
         return {
             set: (type, value) => {
-                let data = JSON.parse(localStorage.getItem('pixelPerfect'));
+                let data = JSON.parse(localStorage.getItem('pixel-perfect'));
                 data[type] = value;
-                localStorage.setItem('pixelPerfect', JSON.stringify(data));
+                localStorage.setItem('pixel-perfect', JSON.stringify(data));
             },
-            get: type => JSON.parse(localStorage.getItem('pixelPerfect'))[type],
-            init: () => localStorage.setItem('pixelPerfect', '{"image":null,"x":0,"y":0,"opacity":0.3}')
+            get: type => JSON.parse(localStorage.getItem('pixel-perfect'))[type],
+            init: () => localStorage.setItem('pixel-perfect', '{"image":null,"x":0,"y":0,"opacity":0.3}')
         };
     }
     
-    init() {
-        if (document.getElementById('pixel-perfect') === null) {
+    constructor() {
+        if (document.getElementById('pixel-perfect-addon') === null) {
             this.storage.init();
             document.body.insertAdjacentHTML(
                 'beforeend',
                 `
                     <link rel="stylesheet" type="text/css" href="https://acoquoin.github.io/pixel-perfect/app.css">
-                    <details id="pixel-perfect">
+                    <details id="pixel-perfect-addon">
                         <summary>PixelPerfect</summary>
                         <div>
                             <label style="grid-column: span 2;">IMAGE<div class="input"><input type="file" accept="image/*" /></div></label>
@@ -33,12 +33,12 @@ class PixelPerfect {
                             </p>
                         </div>
                     </details>
-                    <img id="pixel-perfect-img" />
+                    <img id="pixel-perfect-addon-img" />
                 `
             );
 
             
-            this.wrapper = document.getElementById('pixel-perfect');
+            this.wrapper = document.getElementById('pixel-perfect-addon');
             
             this.controls = {
                 file: this.wrapper.querySelector(`input[type=file]`),
@@ -46,10 +46,10 @@ class PixelPerfect {
                 y: this.wrapper.querySelector(`input[name=y]`),
                 opacity: this.wrapper.querySelector(`input[type=range]`),
                 output: this.wrapper.querySelector(`output`),
-                image: document.querySelector(`#pixel-perfect-img`)
+                image: document.querySelector(`#pixel-perfect-addon-img`)
             };
                   
-            const config = JSON.parse(localStorage.getItem('pixelPerfect'));
+            const config = JSON.parse(localStorage.getItem('pixel-perfect'));
             if (config.image) {
                 this.controls.image.onload = e => {
                     this.controls.opacity.value = config.opacity;
@@ -131,4 +131,3 @@ class PixelPerfect {
 }
 
 window.pixelPerfect = new PixelPerfect();
-window.pixelPerfect.init();
