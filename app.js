@@ -54,8 +54,9 @@ class PixelPerfect {
                     this.controls.x.value = config.x;
                     this.controls.y.value = config.y;
                     this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
-                    this.controls.image.style.left = this.controls.x.valueAsNumber;
-                    this.controls.image.style.top = this.controls.y.valueAsNumber;
+                    this.controls.output.textContent = parseInt(this.controls.opacity.valueAsNumber * 1e2);
+                    this.controls.image.style.left = this.controls.x.valueAsNumber + 'px';
+                    this.controls.image.style.top = this.controls.y.valueAsNumber + 'px';
                     this.controls.file.parentElement.setAttribute('placeholder', `${name} (${e.target.width}x${e.target.height})`);
                 };
                 this.controls.image.src = config.image;
