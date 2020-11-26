@@ -6,14 +6,12 @@ class PixelPerfect {
                 data[type] = value;
                 localStorage.setItem('pixel-perfect', JSON.stringify(data));
             },
-            get: type => JSON.parse(localStorage.getItem('pixel-perfect'))[type],
-            init: () => localStorage.setItem('pixel-perfect', '{"image":null,"x":0,"y":0,"opacity":0.3}')
+            get: type => JSON.parse(localStorage.getItem('pixel-perfect'))[type]
         };
     }
     
     constructor() {
         if (document.getElementById('pixel-perfect-addon') === null) {
-            this.storage.init();
             document.body.insertAdjacentHTML(
                 'beforeend',
                 `
@@ -61,6 +59,8 @@ class PixelPerfect {
                     this.controls.file.parentElement.setAttribute('placeholder', `${name} (${e.target.width}x${e.target.height})`);
                 };
                 this.controls.image.src = config.image;
+            } else {
+                localStorage.setItem('pixel-perfect', '{"image":null,"x":0,"y":0,"opacity":0.3}');
             }
             
             this.controls.file.parentElement.setAttribute('placeholder', 'Choose an image...');
