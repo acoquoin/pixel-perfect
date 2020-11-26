@@ -48,7 +48,7 @@ class PixelPerfect {
             };
                   
             const config = JSON.parse(localStorage.getItem('pixel-perfect'));
-            if (config.image) {
+            if (config && config.image) {
                 this.controls.image.onload = e => {
                     this.controls.opacity.value = config.opacity;
                     this.controls.x.value = config.x;
@@ -104,6 +104,7 @@ class PixelPerfect {
             document.addEventListener('keydown', e => {
                 if (e.key === 'F1') {
                     this.wrapper.hidden = this.wrapper.hidden === false;
+                    this.controls.image.hidden = this.wrapper.hidden;
                 }
                 if (e.target instanceof HTMLInputElement === false && this.wrapper.hidden === false && this.wrapper.open) {
                     if (e.key === 'ArrowUp') {
