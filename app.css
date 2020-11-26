@@ -1,0 +1,105 @@
+#pixel-perfect {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2147483647;
+    background-color: #202020;
+    box-sizing: border-box;
+    border-radius: 0 0 0 5px;
+}
+#pixel-perfect * {
+    font: bold 11px/1.5 Helvetica, sans-serif;
+    box-sizing: border-box;
+    color: #AAA;
+}
+#pixel-perfect summary {
+    list-style-type: none;
+    padding: 5px 10px;
+    background-color: #181818;
+    color: #FFF;
+    font-weight: bold;
+    cursor: pointer;
+}
+#pixel-perfect summary::-webkit-details-marker {
+    display: none;
+}
+#pixel-perfect > div {
+    display: grid;
+    gap: 10px;
+    padding: 10px;
+}
+#pixel-perfect input,
+#pixel-perfect div.input {
+    padding: 5px;
+    border: 1px solid #343434;
+    width: 100%;
+    background-color: #181818;
+    border-radius: 3px;
+    color: #dcdcdc;
+    height: 32px;
+    color: #AAA;
+}
+#pixel-perfect div.input::before {
+    content: attr(placeholder);
+    font: bold 11px/1.5 Helvetica, sans-serif;
+    box-sizing: border-box;
+    color: #AAA;
+    align-self: center;
+}
+#pixel-perfect div.input {
+    position: relative;
+    display: flex;
+}
+#pixel-perfect input[type=file] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+}
+#pixel-perfect input[type=number] {
+    appearance: textfield;
+}
+#pixel-perfect p {
+    margin: 0;
+    padding: 5px;
+    background-color: #343434;
+    border: 1px solid #434343;
+    border-radius: 3px;
+    color: #AAA;
+}
+#pixel-perfect-img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2147483646;
+    opacity: .3;
+}
+#pixel-perfect kbd {
+    background-color: #535353;
+    border-radius: 3px;
+    border: 1px solid #434343;
+    display: inline-block;
+    font: normal 10px/1 sans-serif;
+    padding: 1px 3px;
+}
+#pixel-perfect .range {
+    width: 100%;
+}
+
+#pixel-perfect input[type=range] {
+    appearance: none;
+    padding: 0;
+    height: 0;
+    background-color: #343434;
+    outline: none;
+}
+
+#pixel-perfect input[type=range]::-moz-range-thumb {
+    background: #AAA;
+    border: 0;
+    borde-radius: 3px;
+}
+
