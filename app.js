@@ -1,5 +1,3 @@
-const id = Math.random().toString(36).substr(2, 9);
-
 class PixelPerfect {
     get storage() {
         return {
@@ -14,122 +12,13 @@ class PixelPerfect {
     }
     
     constructor() {
-        this.id = Math.random().toString(36).substr(2, 9);
-        if (document.getElementById(`ctr-${this.id}`) === null) {
+        if (document.getElementById('perfect-pixel') === null) {
             this.storage.init();
             document.body.insertAdjacentHTML(
                 'beforeend',
                 `
-                    <style type="text/css">
-                        #ctr-${this.id} {
-                            position: absolute;
-                            top: 0;
-                            right: 0;
-                            z-index: 2147483647;
-                            background-color: #202020;
-                            box-sizing: border-box;
-                            border-radius: 0 0 0 5px;
-                        }
-                        #ctr-${this.id} * {
-                            font: bold 11px/1.5 Helvetica, sans-serif;
-                            box-sizing: border-box;
-                            color: #AAA;
-                        }
-                        #ctr-${this.id} summary {
-                            list-style-type: none;
-                            padding: 5px 10px;
-                            background-color: #181818;
-                            color: #FFF;
-                            font-weight: bold;
-                            cursor: pointer;
-                        }
-                        #ctr-${this.id} summary::-webkit-details-marker {
-                            display: none;
-                        }
-                        #ctr-${this.id} > div {
-                            display: grid;
-                            gap: 10px;
-                            padding: 10px;
-                        }
-                        #ctr-${this.id} input,
-                        #ctr-${this.id} div.input {
-                            padding: 5px;
-                            border: 1px solid #343434;
-                            width: 100%;
-                            background-color: #181818;
-                            border-radius: 3px;
-                            color: #dcdcdc;
-                            height: 32px;
-                            color: #AAA;
-                        }
-                        #ctr-${this.id} div.input::before {
-                            content: attr(placeholder);
-                            font: bold 11px/1.5 Helvetica, sans-serif;
-                            box-sizing: border-box;
-                            color: #AAA;
-                            align-self: center;
-                        }
-                        #ctr-${this.id} div.input {
-                            position: relative;
-                            display: flex;
-                        }
-                        #ctr-${this.id} input[type=file] {
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            z-index: 1;
-                            opacity: 0;
-                        }
-                        #ctr-${this.id} input[type=number] {
-                            appearance: textfield;
-                        }
-                        #ctr-${this.id} p {
-                            margin: 0;
-                            padding: 5px;
-                            background-color: #343434;
-                            border: 1px solid #434343;
-                            border-radius: 3px;
-                            color: #AAA;
-                        }
-                        #img-${this.id} {
-                            position: absolute;
-                            top: 0;
-                            right: 0;
-                            z-index: 2147483646;
-                            opacity: .3;
-                        }
-                        #ctr-${this.id} kbd {
-                            background-color: #535353;
-                            border-radius: 3px;
-                            border: 1px solid #434343;
-                            display: inline-block;
-                            font: normal 10px/1 sans-serif;
-                            padding: 1px 3px;
-                        }
-                        #ctr-${this.id} .range {
-                            width: 100%;
-                        }
-                        
-                        #ctr-${this.id} input[type=range] {
-                            appearance: none;
-                            padding: 0;
-                            height: 0;
-                            background-color: #343434;
-                            outline: none;
-                        }
-                        
-                        #ctr-${this.id} input[type=range]::-moz-range-thumb {
-                            background: #AAA;
-                            
-                            border: 0;
-                            borde-radius: 3px;
-                        }
-                        
-                        
-                    </style>
-                    <details id="ctr-${this.id}">
+                    <link rel="stylesheet" type="text/css" href="https://acoquoin.github.io/pixel-perfect/app.css">
+                    <details id="perfect-pixel">
                         <summary>PixelPerfect</summary>
                         <div>
                             <label style="grid-column: span 2;">IMAGE<div class="input"><input type="file" accept="image/*" /></div></label>
@@ -144,12 +33,12 @@ class PixelPerfect {
                             </p>
                         </div>
                     </details>
-                    <img id="img-${this.id}" />
+                    <img id="perfect-pixel-img" />
                 `
             );
 
             
-            this.wrapper = document.querySelector(`#ctr-${this.id}`);
+            this.wrapper = document.getElementById('perfect-pixel');
             
             this.controls = {
                 file: this.wrapper.querySelector(`input[type=file]`),
@@ -157,7 +46,7 @@ class PixelPerfect {
                 y: this.wrapper.querySelector(`input[name=y]`),
                 opacity: this.wrapper.querySelector(`input[type=range]`),
                 output: this.wrapper.querySelector(`output`),
-                image: document.querySelector(`#img-${this.id}`)
+                image: document.querySelector(`#pixel-perfect-img`)
             };
                   
             const config = JSON.parse(localStorage.getItem('pixelPerfect'));
