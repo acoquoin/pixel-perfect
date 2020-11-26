@@ -12,13 +12,13 @@ class PixelPerfect {
     }
     
     constructor() {
-        if (document.getElementById('perfect-pixel') === null) {
+        if (document.getElementById('pixel-perfect') === null) {
             this.storage.init();
             document.body.insertAdjacentHTML(
                 'beforeend',
                 `
                     <link rel="stylesheet" type="text/css" href="https://acoquoin.github.io/pixel-perfect/app.css">
-                    <details id="perfect-pixel">
+                    <details id="pixel-perfect">
                         <summary>PixelPerfect</summary>
                         <div>
                             <label style="grid-column: span 2;">IMAGE<div class="input"><input type="file" accept="image/*" /></div></label>
@@ -33,12 +33,12 @@ class PixelPerfect {
                             </p>
                         </div>
                     </details>
-                    <img id="perfect-pixel-img" />
+                    <img id="pixel-perfect-img" />
                 `
             );
 
             
-            this.wrapper = document.getElementById('perfect-pixel');
+            this.wrapper = document.getElementById('pixel-perfect');
             
             this.controls = {
                 file: this.wrapper.querySelector(`input[type=file]`),
