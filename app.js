@@ -130,4 +130,4 @@ class PixelPerfect {
     }
 }
 
-window.pixelPerfect = new PixelPerfect();
+(() => window.pixelPerfect = new PixelPerfect())();
