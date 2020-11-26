@@ -103,7 +103,7 @@ class PixelPerfect {
                 if (e.key === 'F1') {
                     this.wrapper.hidden = this.wrapper.hidden === false;
                 }
-                if (this.wrapper.hidden === false && this.wrapper.open) {
+                if (e.target instanceof HTMLInputElement === false && this.wrapper.hidden === false && this.wrapper.open) {
                     if (e.key === 'ArrowUp') {
                         e.preventDefault();
                         this.controls.image.style.top = (parseInt(this.controls.image.style.top) || 0) - (e.ctrlKey ?  10 : 1) + 'px';
