@@ -57,11 +57,11 @@ class PixelPerfect {
                     this.controls.output.textContent = parseInt(this.controls.opacity.valueAsNumber * 1e2);
                     this.controls.image.style.left = this.controls.x.valueAsNumber + 'px';
                     this.controls.image.style.top = this.controls.y.valueAsNumber + 'px';
-                    this.controls.file.parentElement.setAttribute('placeholder', `${name} (${e.target.width}x${e.target.height})`);
+                    this.controls.file.parentElement.setAttribute('placeholder', `${config.name} (${e.target.width}x${e.target.height})`);
                 };
                 this.controls.image.src = config.image;
             } else {
-                localStorage.setItem('pixel-perfect', '{"image":null,"x":0,"y":0,"opacity":0.3}');
+                localStorage.setItem('pixel-perfect', '{"image":null,"name":null,"x":0,"y":0,"opacity":0.3}');
             }
             
             this.controls.file.parentElement.setAttribute('placeholder', 'Choose an image...');
@@ -71,6 +71,7 @@ class PixelPerfect {
                     const reader = new FileReader();
                     reader.onload = e => {
                         this.storage.set('image', e.target.result);
+                        this.storage.set('name', name);
                         this.controls.image.onload = e => {
                             this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
                             this.controls.image.style.left = this.controls.x.valueAsNumber;
