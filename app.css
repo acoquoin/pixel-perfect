@@ -1,4 +1,5 @@
 #pixel-perfect-addon {
+    all: unset;
     position: absolute;
     top: 0;
     right: 0;
@@ -71,6 +72,7 @@
     color: #AAA;
 }
 #pixel-perfect-addon-img {
+    all: unset;
     position: absolute;
     z-index: 2147483646;
     width: 100%;
@@ -98,6 +100,6 @@
 #pixel-perfect-addon input[type=range]::-moz-range-thumb {
     background: #AAA;
     border: 0;
-    borde-radius: 3px;
+    border-radius: 3px;
 }
 
