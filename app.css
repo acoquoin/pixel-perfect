@@ -9,6 +9,7 @@
     border-radius: 0 0 0 5px;
 }
 #pixel-perfect-addon * {
+    all: unset;
     font: bold 11px/1.5 Helvetica, sans-serif;
     box-sizing: border-box;
     color: #AAA;
