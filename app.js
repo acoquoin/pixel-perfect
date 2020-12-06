@@ -25,7 +25,7 @@ class PixelPerfect {
                             <label style="grid-column: span 2;">OPACITY (<output>30</output>%)<input type="range" min="0" max="1" step="0.05" placceholder="0.3" /></label>
                             <p style="grid-column: span 2;">
                                 Use <kbd>&#9650;</kbd> <kbd>&#9658;</kbd> <kbd>&#9660</kbd> or <kbd>&#9668;</kbd> with or without:<br>
-                                &nbsp;&nbsp;- <kbd>Shift</kbd> to adjust X, Y positions.<br>
+                                &nbsp;&nbsp;- <kbd>Ctrl</kbd> to adjust X, Y positions.<br>
                                 &nbsp;&nbsp;- <kbd>Alt</kbd> for opacity.<br>
                                 Use <kbd>F1</kbd> to toggle PixelPerfect.
                             </p>
@@ -109,27 +109,55 @@ class PixelPerfect {
                 if (e.target instanceof HTMLInputElement === false && this.wrapper.hidden === false && this.wrapper.open) {
                     if (e.key === 'ArrowUp') {
                         e.preventDefault();
-                        this.controls.image.style.top = (parseInt(this.controls.image.style.top) || 0) - (e.ctrlKey ?  10 : 1) + 'px';
-                        this.storage.set('y', parseInt(this.controls.image.style.top));
-                        this.controls.y.value = parseInt(this.controls.image.style.top);
+                        if (e.altKey) {
+                            this.controls.opacity.value = this.controls.opacity.valueAsNumber + this.controls.opacity.step;
+                            this.controls.output.textContent = parseInt(this.controls.opacity.valueAsNumber * 1e2);
+                            this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
+                            this.storage.set('opacity', this.controls.opacity.valueAsNumber);
+                        } else { 
+                            this.controls.image.style.top = (parseInt(this.controls.image.style.top) || 0) - (e.ctrlKey ?  10 : 1) + 'px';
+                            this.storage.set('y', parseInt(this.controls.image.style.top));
+                            this.controls.y.value = parseInt(this.controls.image.style.top);
+                        }
                     }
                     if (e.key === 'ArrowDown') {
                         e.preventDefault();
-                        this.controls.image.style.top = (parseInt(this.controls.image.style.top) || 0) + (e.ctrlKey ?  10 : 1) + 'px';
-                        this.storage.set('y', parseInt(this.controls.image.style.top));
-                        this.controls.y.value = parseInt(this.controls.image.style.top);
+                        if (e.altKey) {
+                            this.controls.opacity.value = this.controls.opacity.valueAsNumber - this.controls.opacity.step;
+                            this.controls.output.textContent = parseInt(this.controls.opacity.valueAsNumber * 1e2);
+                            this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
+                            this.storage.set('opacity', this.controls.opacity.valueAsNumber);
+                        } else { 
+                            this.controls.image.style.top = (parseInt(this.controls.image.style.top) || 0) + (e.ctrlKey ?  10 : 1) + 'px';
+                            this.storage.set('y', parseInt(this.controls.image.style.top));
+                            this.controls.y.value = parseInt(this.controls.image.style.top);
+                        }
                     }
                     if (e.key === 'ArrowLeft') {
                         e.preventDefault();
-                        this.controls.image.style.left = (parseInt(this.controls.image.style.left) || 0) - (e.ctrlKey ?  10 : 1) + 'px';
-                        this.storage.set('x', parseInt(this.controls.image.style.left));
-                        this.controls.x.value = parseInt(this.controls.image.style.left);
+                        if (e.altKey) {
+                            this.controls.opacity.value = this.controls.opacity.valueAsNumber - this.controls.opacity.step;
+                            this.controls.output.textContent = parseInt(this.controls.opacity.valueAsNumber * 1e2);
+                            this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
+                            this.storage.set('opacity', this.controls.opacity.valueAsNumber);
+                        } else {
+                            this.controls.image.style.left = (parseInt(this.controls.image.style.left) || 0) - (e.ctrlKey ?  10 : 1) + 'px';
+                            this.storage.set('x', parseInt(this.controls.image.style.left));
+                            this.controls.x.value = parseInt(this.controls.image.style.left);
+                        }
                     }
                     if (e.key === 'ArrowRight') {
                         e.preventDefault();
-                        this.controls.image.style.left = (parseInt(this.controls.image.style.left) || 0) + (e.ctrlKey ?  10 : 1) + 'px';
-                        this.storage.set('x', parseInt(this.controls.image.style.left));
-                        this.controls.x.value = parseInt(this.controls.image.style.left);
+                        if (e.altKey) {
+                            this.controls.opacity.value = this.controls.opacity.valueAsNumber + this.controls.opacity.step;
+                            this.controls.output.textContent = parseInt(this.controls.opacity.valueAsNumber * 1e2);
+                            this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
+                            this.storage.set('opacity', this.controls.opacity.valueAsNumber);
+                        } else {
+                            this.controls.image.style.left = (parseInt(this.controls.image.style.left) || 0) + (e.ctrlKey ?  10 : 1) + 'px';
+                            this.storage.set('x', parseInt(this.controls.image.style.left));
+                            this.controls.x.value = parseInt(this.controls.image.style.left);
+                        }
                     }
                 }
             });
