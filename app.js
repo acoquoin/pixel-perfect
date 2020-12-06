@@ -110,7 +110,7 @@ class PixelPerfect {
                     if (e.key === 'ArrowUp') {
                         e.preventDefault();
                         if (e.altKey) {
-                            this.controls.opacity.value = this.controls.opacity.valueAsNumber + this.controls.opacity.step;
+                            this.controls.opacity.value = this.controls.opacity.valueAsNumber + parseFloat(this.controls.opacity.step);
                             this.controls.output.textContent = parseInt(this.controls.opacity.valueAsNumber * 1e2);
                             this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
                             this.storage.set('opacity', this.controls.opacity.valueAsNumber);
@@ -123,7 +123,7 @@ class PixelPerfect {
                     if (e.key === 'ArrowDown') {
                         e.preventDefault();
                         if (e.altKey) {
-                            this.controls.opacity.value = this.controls.opacity.valueAsNumber - this.controls.opacity.step;
+                            this.controls.opacity.value = this.controls.opacity.valueAsNumber - parseFloat(this.controls.opacity.step);
                             this.controls.output.textContent = parseInt(this.controls.opacity.valueAsNumber * 1e2);
                             this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
                             this.storage.set('opacity', this.controls.opacity.valueAsNumber);
@@ -136,7 +136,7 @@ class PixelPerfect {
                     if (e.key === 'ArrowLeft') {
                         e.preventDefault();
                         if (e.altKey) {
-                            this.controls.opacity.value = this.controls.opacity.valueAsNumber - this.controls.opacity.step;
+                            this.controls.opacity.value = this.controls.opacity.valueAsNumber - parseFloat(this.controls.opacity.step);
                             this.controls.output.textContent = parseInt(this.controls.opacity.valueAsNumber * 1e2);
                             this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
                             this.storage.set('opacity', this.controls.opacity.valueAsNumber);
@@ -149,7 +149,7 @@ class PixelPerfect {
                     if (e.key === 'ArrowRight') {
                         e.preventDefault();
                         if (e.altKey) {
-                            this.controls.opacity.value = this.controls.opacity.valueAsNumber + this.controls.opacity.step;
+                            this.controls.opacity.value = this.controls.opacity.valueAsNumber + parseFloat(this.controls.opacity.step);
                             this.controls.output.textContent = parseInt(this.controls.opacity.valueAsNumber * 1e2);
                             this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
                             this.storage.set('opacity', this.controls.opacity.valueAsNumber);
