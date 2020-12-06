@@ -7,10 +7,11 @@
     background-color: #202020;
     box-sizing: border-box;
     border-radius: 0 0 0 5px;
+    font: bold 11px/1.5 Helvetica, sans-serif;
 }
 #pixel-perfect-addon * {
     all: unset;
-    font: bold 11px/1.5 Helvetica, sans-serif;
+    font: inherit;
     box-sizing: border-box;
     color: #AAA;
 }
@@ -27,6 +28,8 @@
     color: #FFF;
     font-weight: bold;
     cursor: pointer;
+    font: inherit;
+    display: block;
 }
 #pixel-perfect-addon summary::-webkit-details-marker {
     display: none;
