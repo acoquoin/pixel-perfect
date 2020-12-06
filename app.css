@@ -14,7 +14,11 @@
     box-sizing: border-box;
     color: #AAA;
 }
+#pixel-perfect-addon *:is(::before, ::after) {
+    all: unset;
+}
 #pixel-perfect-addon summary {
+    all: unset;
     list-style-type: none;
     padding: 5px 10px;
     background-color: #181818;
