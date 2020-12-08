@@ -5,7 +5,7 @@ class PixelPerfect {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 `
-                    <link rel="stylesheet" type="text/css" href="file:///C:/Users/LehrerLupus/Desktop/DEV/nginx-1.17.8/html/pwa/pixel-perfect/app.css">
+                    <link rel="stylesheet" type="text/css" href="https://acoquoin.github.io/pixel-perfect/app.css">
                     <form id="pixel-perfect-addon" onsubmit="return false;">
                         <b title="Use arrow keys with or without:\n- &quot;Ctrl&quot; to adjust X, Y positions.\n- &quot;Shift&quot; for opacity.\nUse &quot;F1&quot; to toggle PixelPerfect.">PixelPerfect</b>
                         <label>Image:<div placeholder="Choose an image..."><input name="file" type="file" accept="image/*" /></div></label>
