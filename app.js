@@ -54,7 +54,7 @@ class PixelPerfect {
                 if (data) {
                     this.image.style.opacity = parseFloat(this.image.style.opacity) + data;
                 }
-                //this.form.output.textContent = (data ?? this.form.opacity.valueAsNumber) * 1e2;
+                //this.form.output.textContent = ((data || this.form.opacity.valueAsNumber)) * 1e2;
                 break;
             case 'x':
                 this.image.style.left = parseInt(this.image.style.left) + (data || 0) + 'px';
@@ -89,4 +89,4 @@ class PixelPerfect {
     }
 }
 
-window.pixelPerfect = window.pixelPerfect ?? new PixelPerfect();
+window.pixelPerfect = window.pixelPerfect || new PixelPerfect();
