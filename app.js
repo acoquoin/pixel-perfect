@@ -1,168 +1,92 @@
 class PixelPerfect {
-    get storage() {
-        return {
-            set: (type, value) => {
-                let data = JSON.parse(localStorage.getItem('pixel-perfect'));
-                data[type] = value;
-                localStorage.setItem('pixel-perfect', JSON.stringify(data));
-            },
-            get: type => JSON.parse(localStorage.getItem('pixel-perfect'))[type]
-        };
-    }
-    
+    /* https://acoquoin.github.io/pixel-perfect/app.css*/
     constructor() {
         if (document.getElementById('pixel-perfect-addon') === null) {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 `
-                    <link rel="stylesheet" type="text/css" href="https://acoquoin.github.io/pixel-perfect/app.css">
-                    <details id="pixel-perfect-addon">
-                        <summary>PixelPerfect</summary>
-                        <div>
-                            <label style="grid-column: span 2;">IMAGE<div class="input"><input type="file" accept="image/*" /></div></label>
-                            <label style="grid-row: 2;">X<input type="number" placceholder="0" name="x" /></label>
-                            <label style="grid-row: 2;">Y<input type="number" placceholder="0" name="y" /></label>
-                            <label style="grid-column: span 2;">OPACITY (<output>30</output>%)<input type="range" min="0" max="1" step="0.05" placceholder="0.3" /></label>
-                            <p style="grid-column: span 2;">
-                                Use <kbd>&#9650;</kbd> <kbd>&#9658;</kbd> <kbd>&#9660</kbd> or <kbd>&#9668;</kbd> with or without:<br>
-                                &nbsp;&nbsp;- <kbd>Ctrl</kbd> to adjust X, Y positions.<br>
-                                &nbsp;&nbsp;- <kbd>Alt</kbd> for opacity.<br>
-                                Use <kbd>F1</kbd> to toggle PixelPerfect.
-                            </p>
-                        </div>
-                    </details>
-                    <img id="pixel-perfect-addon-img" />
+                    <link rel="stylesheet" type="text/css" href="file:///C:/Users/LehrerLupus/Desktop/DEV/nginx-1.17.8/html/pwa/pixel-perfect/app.css">
+                    <form id="pixel-perfect-addon" onsubmit="return false;">
+                        <b title="Use arrow keys with or without:\n- &quot;Ctrl&quot; to adjust X, Y positions.\n- &quot;Shift&quot; for opacity.\nUse &quot;F1&quot; to toggle PixelPerfect.">PixelPerfect</b>
+                        <label>Image:<div placeholder="Choose an image..."><input name="file" type="file" accept="image/*" /></div></label>
+                        <label>X:<input name="x" type="number" value="0" /></label>
+                        <label>Y:<input name="y" type="number" value="0" /></label>
+                        <label>Opacity (<output name="output">50</output>%):<input name="opacity" type="range" min="0" max="1" step=".05" value=".5" /></label>
+                    </form>
+                    <img id="pixel-perfect-addon-img" style="left: 0; opacity: .5; top: 0;" />
                 `
             );
-
+            this.form = document.getElementById('pixel-perfect-addon');
+            this.image = document.getElementById('pixel-perfect-addon-img');
             
-            this.wrapper = document.getElementById('pixel-perfect-addon');
+            // update or load config
+            //this.config.file && this.update(config.file);
             
-            this.controls = {
-                file: this.wrapper.querySelector(`input[type=file]`),
-                x: this.wrapper.querySelector(`input[name=x]`),
-                y: this.wrapper.querySelector(`input[name=y]`),
-                opacity: this.wrapper.querySelector(`input[type=range]`),
-                output: this.wrapper.querySelector(`output`),
-                image: document.querySelector(`#pixel-perfect-addon-img`)
-            };
-                  
-            const config = JSON.parse(localStorage.getItem('pixel-perfect'));
-            if (config && config.image) {
-                this.controls.image.onload = e => {
-                    this.controls.opacity.value = config.opacity;
-                    this.controls.x.value = config.x;
-                    this.controls.y.value = config.y;
-                    this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
-                    this.controls.output.textContent = parseInt(this.controls.opacity.valueAsNumber * 1e2);
-                    this.controls.image.style.left = this.controls.x.valueAsNumber + 'px';
-                    this.controls.image.style.top = this.controls.y.valueAsNumber + 'px';
-                    this.controls.file.parentElement.setAttribute('placeholder', `${config.name} (${e.target.width}x${e.target.height})`);
-                };
-                this.controls.image.src = config.image;
-            } else {
-                localStorage.setItem('pixel-perfect', '{"image":null,"name":null,"x":0,"y":0,"opacity":0.3}');
-            }
-            
-            this.controls.file.parentElement.setAttribute('placeholder', 'Choose an image...');
-            this.controls.file.addEventListener('change', e => {
-                if (e.target.files.length) {
-                    const name = e.target.files[0].name;
+            this.form.file.addEventListener('change', () => {
+                if (this.form.file.files.length) {
                     const reader = new FileReader();
-                    reader.onload = e => {
-                        this.storage.set('image', e.target.result);
-                        this.storage.set('name', name);
-                        this.controls.image.onload = e => {
-                            this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
-                            this.controls.image.style.left = this.controls.x.valueAsNumber;
-                            this.controls.image.style.top = this.controls.y.valueAsNumber;
-                            this.controls.file.parentElement.setAttribute('placeholder', `${name} (${e.target.width}x${e.target.height})`);
-                            this.storage.set('x', this.controls.x.valueAsNumber);
-                            this.storage.set('y', this.controls.y.valueAsNumber);
-                            this.storage.set('opacity', this.controls.opacity.valueAsNumber);
-                        };
-                        this.controls.image.src = e.target.result;
-                    }
-                    reader.readAsDataURL(e.target.files[0]);
+                    reader.onload = e => this.update('file', {src: e.target.result, file: this.form.file.files[0]});
+                    reader.readAsDataURL(this.form.file.files[0]);
                 }
             });
             
-            this.controls.opacity.addEventListener('input', e => {
-                this.controls.output.textContent = parseInt(e.target.valueAsNumber * 1e2);
-                this.controls.image.style.opacity = e.target.valueAsNumber;
-                this.storage.set('opacity', e.target.valueAsNumber);
-            });            
-            this.controls.x.addEventListener('input', e => {
-                this.controls.image.style.left = e.target.valueAsNumber + 'px';
-                this.storage.set('x', e.target.valueAsNumber);
-            });            
-            this.controls.y.addEventListener('input', e => {
-                this.controls.image.style.top = e.target.valueAsNumber + 'px';
-                this.storage.set('y', e.target.valueAsNumber);
-            });
-            
-            document.addEventListener('keydown', e => {
-                if (e.key === 'F1') {
-                    this.wrapper.hidden = this.wrapper.hidden === false;
-                    this.controls.image.hidden = this.wrapper.hidden;
+            this.form.x.addEventListener('input', () => this.update('x'));
+            this.form.y.addEventListener('input', () => this.update('y'));
+            this.form.opacity.addEventListener('input', () => this.update('opacity'));
+            document.addEventListener('keydown', this);
+        }
+    }
+    
+    get config() {
+        return JSON.parse(localStorage.getItem('pixel-perfect') || '{"file":null,"name":null,"x":0,"y":0,"opacity":.5}');
+    }
+    
+    update(type, data) {
+        switch (type) {
+            case 'file':
+                this.image.onload = e => {
+                    // update form values
+                    this.form.file.parentElement.setAttribute('placeholder',  `${data.file.name} (${this.image.naturalWidth}x${this.image.naturalHeight})`);
+                };
+                this.image.src = data.src;
+                break;
+            case 'opacity':
+                if (data) {
+                    this.image.style.opacity = parseFloat(this.image.style.opacity) + data;
                 }
-                if (e.target instanceof HTMLInputElement === false && this.wrapper.hidden === false && this.wrapper.open) {
-                    if (e.key === 'ArrowUp') {
-                        e.preventDefault();
-                        if (e.altKey) {
-                            this.controls.opacity.value = this.controls.opacity.valueAsNumber + parseFloat(this.controls.opacity.step);
-                            this.controls.output.textContent = parseInt(this.controls.opacity.valueAsNumber * 1e2);
-                            this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
-                            this.storage.set('opacity', this.controls.opacity.valueAsNumber);
-                        } else { 
-                            this.controls.image.style.top = (parseInt(this.controls.image.style.top) || 0) - (e.ctrlKey ?  10 : 1) + 'px';
-                            this.storage.set('y', parseInt(this.controls.image.style.top));
-                            this.controls.y.value = parseInt(this.controls.image.style.top);
-                        }
-                    }
-                    if (e.key === 'ArrowDown') {
-                        e.preventDefault();
-                        if (e.altKey) {
-                            this.controls.opacity.value = this.controls.opacity.valueAsNumber - parseFloat(this.controls.opacity.step);
-                            this.controls.output.textContent = parseInt(this.controls.opacity.valueAsNumber * 1e2);
-                            this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
-                            this.storage.set('opacity', this.controls.opacity.valueAsNumber);
-                        } else { 
-                            this.controls.image.style.top = (parseInt(this.controls.image.style.top) || 0) + (e.ctrlKey ?  10 : 1) + 'px';
-                            this.storage.set('y', parseInt(this.controls.image.style.top));
-                            this.controls.y.value = parseInt(this.controls.image.style.top);
-                        }
-                    }
-                    if (e.key === 'ArrowLeft') {
-                        e.preventDefault();
-                        if (e.altKey) {
-                            this.controls.opacity.value = this.controls.opacity.valueAsNumber - parseFloat(this.controls.opacity.step);
-                            this.controls.output.textContent = parseInt(this.controls.opacity.valueAsNumber * 1e2);
-                            this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
-                            this.storage.set('opacity', this.controls.opacity.valueAsNumber);
-                        } else {
-                            this.controls.image.style.left = (parseInt(this.controls.image.style.left) || 0) - (e.ctrlKey ?  10 : 1) + 'px';
-                            this.storage.set('x', parseInt(this.controls.image.style.left));
-                            this.controls.x.value = parseInt(this.controls.image.style.left);
-                        }
-                    }
-                    if (e.key === 'ArrowRight') {
-                        e.preventDefault();
-                        if (e.altKey) {
-                            this.controls.opacity.value = this.controls.opacity.valueAsNumber + parseFloat(this.controls.opacity.step);
-                            this.controls.output.textContent = parseInt(this.controls.opacity.valueAsNumber * 1e2);
-                            this.controls.image.style.opacity = this.controls.opacity.valueAsNumber;
-                            this.storage.set('opacity', this.controls.opacity.valueAsNumber);
-                        } else {
-                            this.controls.image.style.left = (parseInt(this.controls.image.style.left) || 0) + (e.ctrlKey ?  10 : 1) + 'px';
-                            this.storage.set('x', parseInt(this.controls.image.style.left));
-                            this.controls.x.value = parseInt(this.controls.image.style.left);
-                        }
-                    }
+                //this.form.output.textContent = (data ?? this.form.opacity.valueAsNumber) * 1e2;
+                break;
+            case 'x':
+                this.image.style.left = parseInt(this.image.style.left) + (data || 0) + 'px';
+                break;
+            case 'y':
+                this.image.style.top = parseInt(this.image.style.top) + (data || 0) + 'px';
+                break;
+            case '':
+                break;
+        }
+    }
+    
+    handleEvent(e) {
+        if (e.key === 'F1') {
+            this.image.hidden = this.form.hidden = this.form.hidden === false;
+            //this.image.hidden = this.form.hidden;
+        } else if (this.form.hidden === false) {
+            const keys = ['ArrowRight', 'ArrowDown', 'ArrowUp', 'ArrowLeft'];
+            if (keys.includes(e.key)) {
+                e.preventDefault();
+                const modifier = keys.findIndex(i => i === e.key) > 1 ? -1 : 1;
+                if (e.shiftKey) {
+                    this.update('opacity', parseFloat(this.form.opacity.step) * modifier);
+                } else {
+                    this.update(
+                        ['ArrowLeft', 'ArrowRight'].includes(e.key) ? 'x' : 'y',
+                        modifier * (e.ctrlKey ?  10 : 1)
+                    );
                 }
-            });
+            }
         }
     }
 }
 
-window.pixelPerfect = new PixelPerfect();
+window.pixelPerfect = window.pixelPerfect ?? new PixelPerfect();
